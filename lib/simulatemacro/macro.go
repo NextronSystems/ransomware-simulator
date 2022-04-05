@@ -12,13 +12,13 @@ import (
 
 func Run(args []string) error {
 	wd, _ := os.Getwd()
-	winword := filepath.Join(wd, "winword.exe")
+	winword := filepath.Join(wd, "WINWORD.EXE")
 	// Create pseudo winword.exe - it's only a copy of this executable
-	log.Println("Copying executable as pseudo winword.exe")
+	log.Println("Copying executable as pseudo WINWORD.EXE")
 	if err := copyExecutable(winword); err != nil {
 		return err
 	}
-	log.Printf("Staging execution via winword.exe: %s", strings.Join(args, " "))
+	log.Printf("Staging execution via WINWORD.EXE: %s", strings.Join(args, " "))
 	wordCommand := exec.Command(winword, append([]string{"stage"}, args...)...)
 	wordCommand.Stdout = os.Stdout
 	wordCommand.Stderr = os.Stderr
@@ -44,7 +44,7 @@ func copyExecutable(target string) error {
 		return err
 	}
 	defer execFile.Close()
-	targetFile, err := os.OpenFile(target, os.O_CREATE | os.O_WRONLY | os.O_TRUNC, 0755)
+	targetFile, err := os.OpenFile(target, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0755)
 	if err != nil {
 		return err
 	}
