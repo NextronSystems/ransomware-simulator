@@ -57,4 +57,4 @@ Run command:
 
 ## Screenshots
 
-![Execution and Process Tree](/images/quickbuck.png)
+![Execution and Process Tree](/images/quickbuck_demo.png)
