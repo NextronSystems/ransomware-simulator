@@ -6,18 +6,19 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/secDre4mer/go-parseflags"
-	"github.com/spf13/cobra"
 	"ransomware-simulator/lib/encrypt"
 	"ransomware-simulator/lib/note"
 	"ransomware-simulator/lib/shadowcopy"
 	"ransomware-simulator/lib/simulatemacro"
+
+	"github.com/secDre4mer/go-parseflags"
+	"github.com/spf13/cobra"
 )
 
 func init() {
 	runCmd := &cobra.Command{
 		Use:   "run",
-		Short: "Run ransomware simulator",
+		Short: "Run Ransomware Simulator",
 		Run:   run,
 	}
 	runCmd.Flags().AddFlagSet(parseflags.CreateFlagset(&runOptions))
@@ -25,19 +26,18 @@ func init() {
 }
 
 var runOptions = struct {
-
 	DisableMacroSimulation bool `flag:"disable-macro-simulation" description:"Don't simulate start from a macro by building the following process chain: winword.exe -> cmd.exe -> ransomware-simulator.exe"`
 
 	DisableShadowCopyDeletion bool `flag:"disable-shadow-copy-deletion" description:"Don't simulate volume shadow copy deletion"`
 
-	DisableFileEncryption bool `flag:"disable-file-encryption" description:"Don't simulate document encryption"`
-	EncryptionDirectory string `flag:"dir" description:"Directory where files that will be encrypted should be staged"`
+	DisableFileEncryption bool   `flag:"disable-file-encryption" description:"Don't simulate document encryption"`
+	EncryptionDirectory   string `flag:"dir" description:"Directory where files that will be encrypted should be staged"`
 
-	DisableNoteDrop bool `flag:"disable-note-drop" description:"Don't drop pseudo ransomware note"`
-	NoteLocation string `flag:"note-location" description:"Ransomware note location"`
+	DisableNoteDrop bool   `flag:"disable-note-drop" description:"Don't drop pseudo ransomware note"`
+	NoteLocation    string `flag:"note-location" description:"Ransomware note location"`
 }{
 	EncryptionDirectory: `./encrypted-files`,
-	NoteLocation: filepath.Join(homeDir, "Desktop", "ransomware-simulator-note.txt"),
+	NoteLocation:        filepath.Join(homeDir, "Desktop", "ransomware-simulator-note.txt"),
 }
 
 var homeDir, _ = os.UserHomeDir()

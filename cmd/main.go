@@ -13,7 +13,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:     "ransomware-simulator { run | cleanup }",
 	Example: "ransomware-simulator run",
-	Short:   "Ransomware simulator",
+	Short:   "Ransomware Simulator",
 }
 
 //go:embed ascii-art.txt
