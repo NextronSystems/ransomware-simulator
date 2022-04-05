@@ -13,15 +13,12 @@ This tool simulates typical ransomware behaviour, such as:
 
 - Staging from a Word document macro
 - Deleting Volume Shadow Copies
-- Encrypting documents
+- Encrypting documents (embedded and dropped by the simulator into a new folder)
 - Dropping a ransomware note to the user's desktop
 
-The ransomware simulator takes no action that actually encrypts pre-existing files
-on the device, or deletes Volume Shadow Copies. However, any AV products looking for such behaviour
-should still hopefully trigger.
+The ransomware simulator takes no action that actually encrypts pre-existing files on the device, or deletes Volume Shadow Copies. However, any AV products looking for such behaviour should still hopefully trigger.
 
-Each step, as listed above, can also be disabled via a command line flag. This allows you to check responses to later
-steps as well, even if an AV already detects earlier steps.
+Each step, as listed above, can also be disabled via a command line flag. This allows you to check responses to later steps as well, even if an AV already detects earlier steps.
 
 ## Usage
 
@@ -57,3 +54,7 @@ Run command:
         --disable-shadow-copy-deletion   Don't simulate volume shadow copy deletion
     -h, --help                           help for run
         --note-location string           Ransomware note location (default "C:\\Users\\neo\\Desktop\\ransomware-simulator-note.txt")
+
+## Screenshots
+
+![Execution and Process Tree](/images/quickbuck.png)
