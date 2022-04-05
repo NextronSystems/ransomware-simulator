@@ -1,5 +1,4 @@
-Ransomware Simulator
-----------------------
+# Ransomware Simulator
 
 The goal of this repository is to provide a simple, harmless way to check your AV's protection on ransomware.
 
