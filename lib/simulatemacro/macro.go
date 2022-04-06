@@ -8,7 +8,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"time"
 )
 
 func Run(args []string) error {
@@ -32,8 +31,6 @@ func Run(args []string) error {
 	} else {
 		os.Exit(0)
 	}
-	// it takes some time to startup Winword.exe
-	time.Sleep(5 * time.Second)
 	return nil
 }
 
