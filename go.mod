@@ -1,4 +1,4 @@
-module ransomware-simulator
+module github.com/NextronSystems/ransomware-simulator
 
 go 1.17
 
