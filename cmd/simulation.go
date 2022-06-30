@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
+	"github.com/NextronSystems/ransomware-simulator/lib/encrypt"
+	"github.com/NextronSystems/ransomware-simulator/lib/note"
+	"github.com/NextronSystems/ransomware-simulator/lib/persistance"
+	"github.com/NextronSystems/ransomware-simulator/lib/shadowcopy"
+	"github.com/NextronSystems/ransomware-simulator/lib/simulatemacro"
+	"github.com/secDre4mer/go-parseflags"
+	"github.com/spf13/cobra"
 	"log"
 	"os"
 	"path/filepath"
-
-	"github.com/NextronSystems/ransomware-simulator/lib/encrypt"
-	"github.com/NextronSystems/ransomware-simulator/lib/note"
-	"github.com/NextronSystems/ransomware-simulator/lib/shadowcopy"
-	"github.com/NextronSystems/ransomware-simulator/lib/simulatemacro"
-
-	"github.com/secDre4mer/go-parseflags"
-	"github.com/spf13/cobra"
 )
 
 func init() {
@@ -29,6 +28,8 @@ var runOptions = struct {
 	DisableMacroSimulation bool `flag:"disable-macro-simulation" description:"Don't simulate start from a macro by building the following process chain: winword.exe -> cmd.exe -> ransomware-simulator.exe"`
 
 	DisableShadowCopyDeletion bool `flag:"disable-shadow-copy-deletion" description:"Don't simulate volume shadow copy deletion"`
+
+	DisableAddRegistryAutoRun bool `flag:"disable-registry-autorun" description:"Do not add a value to the registry startup"`
 
 	DisableFileEncryption bool   `flag:"disable-file-encryption" description:"Don't simulate document encryption"`
 	EncryptionDirectory   string `flag:"dir" description:"Directory where files that will be encrypted should be staged"`
@@ -52,6 +53,11 @@ func run(cmd *cobra.Command, args []string) {
 	fmt.Println(asciiArt)
 	if !runOptions.DisableShadowCopyDeletion {
 		if err := shadowcopy.Delete(); err != nil {
+			log.Fatal(err)
+		}
+	}
+	if !runOptions.DisableAddRegistryAutoRun {
+		if err := persistance.RegistryAutoRun(); err != nil {
 			log.Fatal(err)
 		}
 	}
